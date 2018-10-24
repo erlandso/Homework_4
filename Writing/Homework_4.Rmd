@@ -16,3 +16,7 @@ list.files("../Data/")
 ```{r read in data}
 homicides <- read.csv("../Data/homicide-data.csv")
 ```
+
+```{r head}
+head(homicides)
+```
