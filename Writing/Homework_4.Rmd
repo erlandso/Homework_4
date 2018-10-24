@@ -1,0 +1,14 @@
+---
+title: "Homework_4"
+author: "Grant Erlandson"
+date: "October 24, 2018"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r list files}
+list.files("Data/")
+```
