@@ -10,5 +10,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r list files}
-list.files("Data/")
+list.files("../Data/")
+```
+
+```{r read in data}
+homicides <- read.csv("../Data/homicide-data.csv")
 ```
