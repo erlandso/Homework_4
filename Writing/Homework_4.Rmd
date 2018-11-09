@@ -38,16 +38,16 @@ homicides2 <- homicides %>%
 ```
 
 ```{r unslolved data frame}
-unsolved <- homicides %>% 
-  select(city, disposition) %>% 
+unsolved <- homicides2 %>% 
+  select(city_name, disposition) %>% 
   mutate(solved = disposition == "Closed by arrest") %>% 
-  group_by(city) %>% 
-  summarize(n_homicides = n(), n_unsolved = sum(solved))
+  group_by(city_name) %>% 
+  summarize(n_homicides = n(), n_unsolved = sum(!solved))
 ```
 
 ```{r baltimore prop test}
 baltimore <- unsolved %>% 
-  filter(city == "Baltimore")
+  filter(city_name == "Baltimore, MD")
 baltimore_prop <- prop.test(x = baltimore$n_unsolved,
           n = baltimore$n_homicides)
 tidy(baltimore_prop)
@@ -58,12 +58,12 @@ unsolved <- unsolved %>%
   mutate(test = map2(n_unsolved, n_homicides, ~ prop.test(.x, n = .y))) %>% 
   mutate(test = map(test, ~ tidy(.x))) %>% 
   unnest(.drop = TRUE) %>% 
-  select(city, estimate, conf.low, conf.high)
+  select(city_name, estimate, conf.low, conf.high)
 ```
 
 ```{r reordering proportions}
 unsolved_plot <- unsolved %>%
-  mutate(city = (fct_reorder(.f = city, .x = estimate, .desc = FALSE)))
+  mutate(city = (fct_reorder(.f = city_name, .x = estimate, .desc = FALSE)))
 ```
 
 ```{r plotting graph}
