@@ -42,3 +42,11 @@ unsolved <- homicides %>%
   group_by(city) %>% 
   summarize(n_homicides = n(), n_unsolved = sum(solved))
 ```
+
+```{r baltimore prop test}
+baltimore <- unsolved %>% 
+  filter(city == "Baltimore")
+baltimore_prop <- prop.test(x = baltimore$n_unsolved,
+          n = baltimore$n_homicides)
+tidy(baltimore_prop)
+```
