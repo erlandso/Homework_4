@@ -58,3 +58,8 @@ unsolved <- unsolved %>%
   unnest(.drop = TRUE) %>% 
   select(city, estimate, conf.low, conf.high)
 ```
+
+```{reordering proportions}
+unsolved_plot <- unsolved %>%
+  mutate(city = (fct_reorder(.f = city, .x = estimate, .desc = FALSE)))
+```
