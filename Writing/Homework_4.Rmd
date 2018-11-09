@@ -50,3 +50,11 @@ baltimore_prop <- prop.test(x = baltimore$n_unsolved,
           n = baltimore$n_homicides)
 tidy(baltimore_prop)
 ```
+
+```{r all cities prop test}
+unsolved <- unsolved %>% 
+  mutate(test = map2(n_unsolved, n_homicides, ~ prop.test(.x, n = .y))) %>% 
+  mutate(test = map(test, ~ tidy(.x))) %>% 
+  unnest(.drop = TRUE) %>% 
+  select(city, estimate, conf.low, conf.high)
+```
