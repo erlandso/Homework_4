@@ -34,3 +34,11 @@ homicides <- read.csv("../Data/homicide-data.csv")
 homicides2 <- homicides %>% 
   unite(city_name, city, state, sep = ", ")
 ```
+
+```{r unslolved data frame}
+unsolved <- homicides %>% 
+  select(city, disposition) %>% 
+  mutate(solved = disposition == "Closed by arrest") %>% 
+  group_by(city) %>% 
+  summarize(n_homicides = n(), n_unsolved = sum(solved))
+```
