@@ -9,6 +9,19 @@ output: word_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r load packages}
+library(tidyr)
+library(readr)
+library(dplyr)
+library(broom)
+library(purrr)
+library(ggplot2)
+library(ggfortify)
+library(ggthemes)
+library(ggmap)
+library(stringr)
+```
+
 ```{r list files}
 list.files("../Data/")
 ```
@@ -17,6 +30,7 @@ list.files("../Data/")
 homicides <- read.csv("../Data/homicide-data.csv")
 ```
 
-```{r head}
-head(homicides)
+```{r new column}
+homicides2 <- homicides %>% 
+  unite(city_name, city, state, sep = ", ")
 ```
