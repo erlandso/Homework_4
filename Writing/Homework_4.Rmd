@@ -59,7 +59,16 @@ unsolved <- unsolved %>%
   select(city, estimate, conf.low, conf.high)
 ```
 
-```{reordering proportions}
+```{r reordering proportions}
 unsolved_plot <- unsolved %>%
   mutate(city = (fct_reorder(.f = city, .x = estimate, .desc = FALSE)))
+```
+
+```{r plotting graph}
+ggplot(unsolved_plot, aes(x = estimate, y = city))+
+  geom_point(color = "White")+
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0, color = "White")+
+  scale_x_continuous(name = "Percent of homicides that are unsolved", labels = percent)+
+  labs(y = "")+
+  theme_dark()
 ```
